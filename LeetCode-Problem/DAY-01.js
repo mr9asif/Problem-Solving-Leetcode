@@ -155,3 +155,139 @@
 
 // Choose the optimized heap solution for competitive programming or large test cases.
 
+
+
+// ----------------------------
+
+// **Problem Description:**
+// Given an array of integers `nums` and an integer `target`, return the indices of the two numbers such that they add up to the `target`.
+
+// You may assume that each input would have exactly one solution, and you may not use the same element twice. You can return the answer in any order.
+
+// ---
+
+// ### Example
+
+// #### Input:
+// ```plaintext
+// nums = [2, 7, 11, 15]
+// target = 9
+// ```
+
+// #### Output:
+// ```plaintext
+// [0, 1]
+// ```
+
+// #### Explanation:
+// Because `nums[0] + nums[1] == 9`, we return `[0, 1]`.
+
+// ---
+
+// ### **Constraints**
+// 1. `2 <= nums.length <= 10^4`
+// 2. `-10^9 <= nums[i] <= 10^9`
+// 3. `-10^9 <= target <= 10^9`
+// 4. Exactly one solution exists.
+
+// ---
+
+// ### **Solution Approaches**
+
+// #### 1. Brute Force Approach
+// - Compare every possible pair of numbers in the array.
+// - If the sum of the pair equals the target, return their indices.
+
+// **Algorithm:**
+// 1. Use nested loops to iterate over the array.
+// 2. For every element `nums[i]`, check all elements `nums[j]` where `j > i`.
+// 3. If `nums[i] + nums[j] == target`, return `[i, j]`.
+
+// **Code Implementation:**
+// ```java
+// class Main {
+//     public static void main(String[] args) {
+//         int[] nums = {2, 7, 11, 15};
+//         int target = 9;
+//         int[] ans = addTwoSum(nums, target);
+//         System.out.println("[" + ans[0] + ", " + ans[1] + "]");
+//     }
+
+//     public static int[] addTwoSum(int[] nums, int target) {
+//         for (int i = 0; i < nums.length; i++) {
+//             for (int j = i + 1; j < nums.length; j++) {
+//                 if (nums[i] + nums[j] == target) {
+//                     return new int[]{i, j};
+//                 }
+//             }
+//         }
+//         throw new IllegalArgumentException("No solution found");
+//     }
+// }
+// ```
+
+// **Complexity Analysis:**
+// - Time Complexity: **O(n^2)** (nested loops iterate over the array).
+// - Space Complexity: **O(1)** (no extra space used).
+
+// ---
+
+// #### 2. Optimized Approach (Using HashMap)
+// - Use a `HashMap` to store numbers and their indices for quick lookup.
+// - As you iterate over the array, calculate the complement (`target - nums[i]`) and check if it exists in the map.
+
+// **Algorithm:**
+// 1. Create a `HashMap` to store the numbers and their indices.
+// 2. Iterate through the array:
+//    - Compute `complement = target - nums[i]`.
+//    - If the `complement` is found in the map, return its index and the current index.
+//    - Otherwise, add the current number and its index to the map.
+
+// **Code Implementation:**
+// ```java
+// import java.util.HashMap;
+
+// class Main {
+//     public static void main(String[] args) {
+//         int[] nums = {2, 7, 11, 15};
+//         int target = 9;
+//         int[] ans = addTwoSum(nums, target);
+//         System.out.println("[" + ans[0] + ", " + ans[1] + "]");
+//     }
+
+//     public static int[] addTwoSum(int[] nums, int target) {
+//         HashMap<Integer, Integer> map = new HashMap<>();
+//         for (int i = 0; i < nums.length; i++) {
+//             int complement = target - nums[i];
+//             if (map.containsKey(complement)) {
+//                 return new int[]{map.get(complement), i};
+//             }
+//             map.put(nums[i], i);
+//         }
+//         throw new IllegalArgumentException("No solution found");
+//     }
+// }
+// ```
+
+// **Complexity Analysis:**
+// - Time Complexity: **O(n)** (single iteration through the array with constant-time lookups in the map).
+// - Space Complexity: **O(n)** (to store elements in the map).
+
+// ---
+
+// ### **Key Differences Between Approaches**
+// | Aspect                 | Brute Force            | HashMap Approach       |
+// |------------------------|------------------------|------------------------|
+// | **Time Complexity**    | O(n^2)                 | O(n)                   |
+// | **Space Complexity**   | O(1)                   | O(n)                   |
+// | **Efficiency**         | Inefficient for large inputs | Efficient for large inputs |
+
+// ---
+
+// ### **Best Practices**
+// 1. Use the HashMap approach for large inputs due to its linear time complexity.
+// 2. Always validate edge cases, such as:
+//    - Minimum/maximum array size.
+//    - Negative numbers.
+// 3. Ensure your solution handles the constraints and guarantees of the problem.
+
